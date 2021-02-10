@@ -7,3 +7,8 @@ data "google_compute_image" "centos_8" {
   family  = "centos-8"
   project = "centos-cloud"
 }
+
+data "google_compute_image" "debian_10" {
+  family  = "debian-10"
+  project = "debian-cloud"
+}

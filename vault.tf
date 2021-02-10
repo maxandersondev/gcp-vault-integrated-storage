@@ -25,7 +25,7 @@ resource "google_compute_instance_template" "vault" {
 
   metadata_startup_script = data.template_file.vault.rendered
   disk {
-    source_image = data.google_compute_image.centos_8.self_link
+    source_image = data.google_compute_image.debian_10.self_link
   }
 
   network_interface {
