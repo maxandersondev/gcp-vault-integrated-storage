@@ -5,6 +5,9 @@ sleep 90s
 # restart network services in case nat wasn't fully there
 #sudo systemctl status NetworkManager.service
 
+# Need this to do apt-add-repository
+sudo apt-get install software-properties-common
+
 #add hashi repo
 sudo curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
