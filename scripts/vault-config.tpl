@@ -4,7 +4,8 @@
 sleep 90s
 # restart network services in case nat wasn't fully there
 #sudo systemctl status NetworkManager.service
-
+touch /tmp/log.txt
+echo "about to do apt-get install software" >> /tmp/log.txt
 # Need this to do apt-add-repository
 sudo apt-get install software-properties-common
 
