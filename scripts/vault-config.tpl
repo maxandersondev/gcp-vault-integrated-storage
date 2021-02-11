@@ -68,13 +68,13 @@ sudo cat << EOF >> /tmp/vault.hcl
 disable_mlock = true
 ui = true
 
-storage "file"{
+storage "raft"{
   path = "/opt/vault/data"
 
 }
 
 retry_join {
-    auto_join = "provider=gce project_name=ahead-manders tag_value=${vault_join_tag}"
+    auto_join = "provider=gce project_name=${project_name} tag_value=${vault_join_tag}"
 }
 
 listner "tcp" {
@@ -93,6 +93,9 @@ listner "tcp" {
 #   statsite_address = "127.0.0.1:8125"
 #   disable_hostname = true
 # }
+
+cluster_addr = "https://127.0.0.1:8201"
+api_addr = "https://127.0.0.1:8200"
 
 EOF
 

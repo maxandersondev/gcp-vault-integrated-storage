@@ -72,6 +72,7 @@ data "template_file" "vault" {
   vars = {
     encrypt_key = var.encrypt_key
     data_center = var.data_center
+    project_name = var.gcp_project_id
     vault_join_tag = var.vault_join_tag
   }
 }
