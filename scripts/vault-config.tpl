@@ -7,12 +7,12 @@ sleep 90s
 touch /tmp/log.txt
 echo "about to do apt-get install software" >> /tmp/log.txt
 # Need this to do apt-add-repository
-sudo apt-get install software-properties-common
+sudo apt-get install software-properties-common -y
 
 #add hashi repo
 sudo curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt-get update && sudo apt-get install vault
+sudo apt-get update -y && sudo apt-get install vault -y
 
 # Install some software
 sudo apt-get update -y
