@@ -70,12 +70,12 @@ ui = true
 
 storage "raft"{
   path = "/opt/vault/data"
-
-}
-
-retry_join {
+  retry_join {
     auto_join = "provider=gce project_name=${project_name} tag_value=${vault_join_tag}"
+  }
+
 }
+
 
 listner "tcp" {
   address     = "0.0.0.0:8200"
