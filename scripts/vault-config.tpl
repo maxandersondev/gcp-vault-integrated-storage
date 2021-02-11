@@ -20,7 +20,6 @@ sudo apt-get install wget -y
 
 
 # Create some files to hold some info for us
-touch /tmp/consul-version
 touch /tmp/my-ip
 
 sudo cat << EOF >> /tmp/vault.service
@@ -66,6 +65,7 @@ sudo mv /tmp/vault.service /etc/systemd/system/
 # set up vault.hcl
 
 sudo cat << EOF >> /tmp/vault.hcl
+disable_mlock = true
 ui = true
 
 storage "file"{
@@ -73,8 +73,13 @@ storage "file"{
 
 }
 
+retry_join {
+    auto_join = "provider=gce project_name=ahead-manders tag_value=${vault_join_tag}"
+}
+
 listner "tcp" {
   address     = "0.0.0.0:8200"
+  cluster_address = "0.0.0.0:8201"
   tls_cert_file = "/opt/vault/tls/tls.crt"
   tls_key_file  = "/opt/vault/tls/tls.key"
 }
@@ -96,7 +101,7 @@ sudo mv /tmp/vault.hcl /etc/vault.d
 sudo chown --recursive vault:vault /etc/vault.d
 sudo chmod 640 /etc/vault.d/vault.hcl
 sudo systemctl enable vault
-#sudo systemctl start vault
+sudo systemctl start vault
 
 # get IP
 export IP_INTERNAL=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')

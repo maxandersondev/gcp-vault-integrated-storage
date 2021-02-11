@@ -1,8 +1,6 @@
 gcp_project_id = "ahead-manderson"
 gcp_region = "us-central1"
 network_project_id = "hashi-vault-network"
-consul_version = "1.7.3"
-vault_version = "1.4.2"
 encrypt_key = "TnZ7ByxGGdBVK+NFBNhwmSFqqk4QiJdEG4TBW8Z4JPk="
 data_center = "dc1"
 

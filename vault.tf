@@ -72,7 +72,7 @@ data "template_file" "vault" {
   vars = {
     encrypt_key = var.encrypt_key
     data_center = var.data_center
-    consul_join_tag = var.consul_join_tag
+    vault_join_tag = var.vault_join_tag
   }
 }
 

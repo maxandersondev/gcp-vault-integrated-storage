@@ -55,16 +55,11 @@ variable "consul_server_cluster_size" {
   default     = 3
 }
 
-variable "consul_version" {
-  description = "Version of consul we intend on using"
-  type        = string
-  default     = "1.7.3"
-}
 
 variable "vault_version" {
   description = "Version of vault we intend on using"
   type        = string
-  default     = "1.4.2"
+  default     = "1.6.2"
 }
 
 variable "data_center" {
@@ -73,8 +68,8 @@ variable "data_center" {
   default     = "dc1"
 }
 
-variable "consul_join_tag" {
+variable "vault_join_tag" {
   description = "Tag to dynamically join nodes"
   type        = string
-  default     = "consul-cluster-node"
+  default     = "vault-cluster-node"
 }
