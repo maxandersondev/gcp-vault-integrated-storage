@@ -77,8 +77,8 @@ storage "raft"{
 }
 
 listner "tcp" {
-  address     = "127.0.0.1:8200"
-  cluster_address = "127.0.0.1:8201"
+  address         = "[::]:8200"
+  cluster_address = "[::]:8201"
   tls_disable = 1
   tls_cert_file = "/opt/vault/tls/tls.crt"
   tls_key_file  = "/opt/vault/tls/tls.key"
