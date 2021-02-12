@@ -29,7 +29,8 @@ resource "google_compute_instance_template" "vault" {
   }
 
   network_interface {
-    subnetwork    = google_compute_subnetwork.management-sub.self_link
+    network = "default"
+    #subnetwork    = google_compute_subnetwork.management-sub.self_link
   }
 
   metadata = {
