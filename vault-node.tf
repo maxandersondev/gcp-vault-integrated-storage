@@ -5,7 +5,8 @@ resource "google_service_account" "default" {
 
 resource "google_project_iam_binding" "project" {
   project = var.gcp_project_id
-  role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  #role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  role = "roles/iam.serviceAccountAdmin"
 
   members = [
     format("serviceAccount:%s", google_service_account.default.email),
