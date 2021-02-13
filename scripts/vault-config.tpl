@@ -95,7 +95,7 @@ telemetry {
   disable_hostname = true
 }
 
-cluster_addr = "https://${IP_INTERNAL}:8201"
+cluster_addr = "https://$IP_INTERNAL:8201"
 api_addr = "https://127.0.0.1:8200"
 
 EOF
