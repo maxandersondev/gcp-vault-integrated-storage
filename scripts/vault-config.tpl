@@ -95,11 +95,11 @@ telemetry {
   disable_hostname = true
 }
 
-cluster_addr = "https://$IP_INTERNAL:8201"
+cluster_addr = "https://IP_INTERNAL:8201"
 api_addr = "https://127.0.0.1:8200"
 
 EOF
-
+sed -i 's/IP_INTERNAL/$IP_INTERNAL/g' /tmp/vault.hcl
 sudo setcap cap_ipc_lock=+ep $(readlink -f $(which vault))
 sudo mv /tmp/vault.hcl /etc/vault.d
 sudo chown --recursive vault:vault /etc/vault.d
