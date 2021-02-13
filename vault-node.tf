@@ -33,11 +33,25 @@ resource "google_compute_instance" "default" {
     foo = "bar"
   }
 
-  metadata_startup_script = "echo hi > /test.txt"
+  metadata_startup_script = data.template_file.vault.rendered
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     email  = google_service_account.default.email
     scopes = ["cloud-platform"]
   }
+}
+
+data "template_file" "vault_first" {
+  template = file("${path.module}/scripts/vault-config-first.tpl")
+  vars = {
+    encrypt_key = var.encrypt_key
+    data_center = var.data_center
+    project_name = var.gcp_project_id
+    vault_join_tag = var.vault_join_tag
+  }
+}
+
+output "rendered" {
+  value = data.template_file.vault_first.rendered
 }
