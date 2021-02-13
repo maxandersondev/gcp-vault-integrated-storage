@@ -3,6 +3,16 @@ resource "google_service_account" "default" {
   display_name = "Vault Compute Service Account"
 }
 
+data "google_iam_policy" "admin" {
+  binding {
+    role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+
+    members = [
+      google_service_account.default.email,
+    ]
+  }
+}
+
 resource "google_compute_instance" "default" {
   name         = "vault-node-1"
   machine_type = "n1-standard-1"

@@ -74,8 +74,8 @@ disable_mlock = true
 ui = true
 
 storage "raft" {
-  path    = "/root/raft-node1/"
-  node_id = "node1"
+  path    = "/opt/vault/data"
+  node_id = "$HOSTNAME"
 }
 
 listener "tcp" {
@@ -84,7 +84,13 @@ listener "tcp" {
   tls_disable = true
 }
 
-disable_mlock = true
+seal "gcpckms" {
+  project     = "ahead-manderson"
+  region      = "global"
+  key_ring    = "hashi-key-ring"
+  crypto_key  = "hashi-crypto-key"
+}
+
 api_addr = "http://IP_INTERNAL:8200"
 cluster_addr = "http://127.0.0.1:8201"
 
