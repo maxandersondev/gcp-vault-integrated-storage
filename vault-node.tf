@@ -1,5 +1,5 @@
 resource "google_service_account" "default" {
-  account_id   = "terraform-cloud-svc"
+  account_id   = "vault-compute-svc"
   display_name = "Vault Compute Service Account"
 }
 
