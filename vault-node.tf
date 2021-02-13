@@ -5,7 +5,7 @@ resource "google_service_account" "default" {
 
 resource "google_compute_instance" "default" {
   name         = "vault-node-1"
-  machine_type = "e2-medium"
+  machine_type = "n1-standard-1"
   zone         = "us-central1-a"
 
   tags = ["vault-member", "vault-cluster-node"]
