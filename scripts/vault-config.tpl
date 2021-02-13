@@ -4,6 +4,11 @@
 sleep 90s
 # restart network services in case nat wasn't fully there
 #sudo systemctl status NetworkManager.service
+
+# get IP
+export IP_INTERNAL=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+echo $IP_INTERNAL >> /tmp/my-ip
+
 touch /tmp/log.txt
 echo "about to do apt-get install software" >> /tmp/log.txt
 # Need this to do apt-add-repository
@@ -70,6 +75,7 @@ ui = true
 
 storage "raft"{
   path = "/opt/vault/data"
+  node_id = "$HOSTNAME"
   retry_join {
     auto_join = "provider=gce project_name=${project_name} tag_value=${vault_join_tag}"
   }
@@ -89,7 +95,7 @@ telemetry {
   disable_hostname = true
 }
 
-cluster_addr = "https://127.0.0.1:8201"
+cluster_addr = "https://${IP_INTERNAL}:8201"
 api_addr = "https://127.0.0.1:8200"
 
 EOF
@@ -101,9 +107,7 @@ sudo chmod 640 /etc/vault.d/vault.hcl
 sudo systemctl enable vault
 sudo systemctl start vault
 
-# get IP
-export IP_INTERNAL=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
-echo $IP_INTERNAL >> /tmp/my-ip
+
 
 
 
