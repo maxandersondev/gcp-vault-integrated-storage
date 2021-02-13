@@ -33,7 +33,7 @@ resource "google_compute_instance" "default" {
     foo = "bar"
   }
 
-  metadata_startup_script = data.template_file.vault.rendered
+  metadata_startup_script = data.template_file.vault_first.rendered
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
