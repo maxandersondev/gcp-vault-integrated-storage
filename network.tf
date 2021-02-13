@@ -3,12 +3,7 @@ resource "google_compute_network" "management" {
   auto_create_subnetworks = "false"
 }
 
-/*
-resource "google_compute_network" "trust" {
-  name                    = "hashi-trust-network"
-  auto_create_subnetworks = "false"
-}
-*/
+
 // Adding VPC Networks to Project  MANAGEMENT
 resource "google_compute_subnetwork" "management-sub" {
   name          = "management-sub"
@@ -16,15 +11,6 @@ resource "google_compute_subnetwork" "management-sub" {
   network       = google_compute_network.management.self_link
   region        = var.gcp_region
 }
-
-// Adding VPC Networks to Project  TRUST
-/*resource "google_compute_subnetwork" "trust-sub" {
-  name          = "trust-sub"
-  ip_cidr_range = "10.0.2.0/24"
-  network       = google_compute_network.trust.self_link
-  region        = var.gcp_region
-}
-*/
 
 
 resource "google_compute_firewall" "default" {
@@ -48,33 +34,7 @@ resource "google_compute_firewall" "default" {
   source_ranges = ["0.0.0.0/0"]
   //source_tags = ["web"]
 }
-/*
-// Adding GCP Firewall Rules for OUTBOUND
-resource "google_compute_firewall" "allow-outbound" {
-  name    = "allow-outbound"
-  network = google_compute_network.trust.self_link
-  direction = "EGRESS"
-  allow {
-    protocol = "all"
 
-    # ports    = ["all"]
-  }
-
-  //source_ranges = ["0.0.0.0/0"]
-}
-
-resource "google_compute_firewall" "allow-inbound" {
-  name    = "trust-allow-inbound"
-  network = google_compute_network.trust.self_link
-  
-  allow {
-    protocol = "tcp"
-    ports    = ["22", "80", "8080", "1000-2000"]
-  }
-
-  source_ranges = ["10.0.2.0/24"]
-}
-*/
 resource "google_compute_router" "hashi-router" {
   name    = "hashi-router"
   region  = google_compute_subnetwork.management-sub.region
