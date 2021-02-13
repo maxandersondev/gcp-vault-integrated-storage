@@ -13,6 +13,10 @@ data "google_iam_policy" "admin" {
   }
 }
 
+resource "google_project_iam_policy" "project" {
+  policy_data = data.google_iam_policy.admin.policy_data
+}
+
 output "testing_email" {
   value = format("serviceAccount:%s", google_service_account.default.email)
 }
