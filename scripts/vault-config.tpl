@@ -97,7 +97,7 @@ telemetry {
 
 cluster_addr = "https://IP_INTERNAL:8201"
 api_addr = "https://127.0.0.1:8200"
-log_leve = "Debug"
+log_level = "Debug"
 
 EOF
 sed -i 's/IP_INTERNAL/'"$IP_INTERNAL"'/g' /tmp/vault.hcl
