@@ -14,6 +14,7 @@ data "google_iam_policy" "admin" {
 }
 
 resource "google_project_iam_policy" "project" {
+  project     = var.gcp_project_id
   policy_data = data.google_iam_policy.admin.policy_data
 }
 
