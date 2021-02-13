@@ -14,7 +14,7 @@ data "google_iam_policy" "admin" {
 }
 
 output "testing_email" {
-  value = google_service_account.default.email
+  value = format("serviceAccount:%s", google_service_account.default.email)
 }
 
 resource "google_compute_instance" "default" {
