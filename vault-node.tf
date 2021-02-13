@@ -3,24 +3,30 @@ resource "google_service_account" "default" {
   display_name = "Vault Compute Service Account"
 }
 
-data "google_iam_policy" "admin" {
-  binding {
-    role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+resource "google_project_iam_binding" "project" {
+  project = var.gcp_project_id
+  role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
-    members = [
-      format("serviceAccount:%s", google_service_account.default.email),
-    ]
-  }
+  members = [
+    format("serviceAccount:%s", google_service_account.default.email),
+  ]
 }
 
-resource "google_project_iam_policy" "project" {
-  project     = var.gcp_project_id
-  policy_data = data.google_iam_policy.admin.policy_data
-}
+# data "google_iam_policy" "admin" {
+#   binding {
+#     role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
-output "testing_email" {
-  value = format("serviceAccount:%s", google_service_account.default.email)
-}
+#     members = [
+#       format("serviceAccount:%s", google_service_account.default.email),
+#     ]
+#   }
+# }
+
+# resource "google_project_iam_policy" "project" {
+#   project     = var.gcp_project_id
+#   policy_data = data.google_iam_policy.admin.policy_data
+# }
+
 
 resource "google_compute_instance" "default" {
   name         = "vault-node-1"
