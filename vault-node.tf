@@ -8,7 +8,7 @@ data "google_iam_policy" "admin" {
     role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
     members = [
-      google_service_account.default.email,
+      format("serviceAccount:%s", google_service_account.default.email),
     ]
   }
 }
