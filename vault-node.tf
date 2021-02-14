@@ -3,15 +3,15 @@ resource "google_service_account" "default" {
   display_name = "Vault Compute Service Account"
 }
 
-resource "google_project_iam_binding" "project" {
-  project = var.gcp_project_id
-  #role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  role = "roles/iam.serviceAccountAdmin"
+# resource "google_project_iam_binding" "project" {
+#   project = var.gcp_project_id
+#   #role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+#   role = "roles/iam.serviceAccountAdmin"
 
-  members = [
-    format("serviceAccount:%s", google_service_account.default.email),
-  ]
-}
+#   members = [
+#     format("serviceAccount:%s", google_service_account.default.email),
+#   ]
+# }
 
 # data "google_iam_policy" "admin" {
 #   binding {
